@@ -1,0 +1,57 @@
+.hide-categories {
+  thead {
+    th {
+      padding-bottom: 0.5em;
+    }
+  }
+  input {
+    width: 4em;
+    @include breakpoint(mobile-extra-large) {
+      width: 2em;
+    }
+  }
+  #rc-scroll-anchor {
+    padding: 0;
+  }
+  table {
+    padding-bottom: 150px;
+    margin: 0 0.667em;
+    border: none;
+    tr.input {
+      border-bottom: none;
+    };
+    tr.input td {
+      padding: 0.25em 0em 0em 0;
+      @include breakpoint(mobile, min-width) {
+        min-width: 15em;
+      }
+    }
+    tr.instructions {
+      border-top: none;
+      display: table-row;
+      overflow-wrap: break-word;
+    }
+    tr.instructions td {
+      max-width: 20em;
+    }
+    tr.instructions label {
+      border: none;
+      padding: 0em 0em 0.25em 0;
+      color: $primary-medium;
+    }
+  }
+  .badge-wrapper span.badge-category {
+    max-width: 20em;
+    @include breakpoint(mobile-extra-large) {
+      max-width: 30vw;
+    }
+  }
+}
+
+.hide-categories-depth-1 {
+  margin-left: 20px;
+}
+
+.hide-categories-depth-2 {
+  margin-left: 40px;
+}

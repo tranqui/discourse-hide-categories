@@ -1,0 +1,9 @@
+<div class="controls tracking-controls">
+  <label>{{d-icon "far-eye-slash"}} {{i18n 'user.hidden_categories'}}</label>
+  {{category-selector
+    categories=model.hiddenCategories
+    blacklist=selectedCategories
+    onChange=(action (mut model.hiddenCategories))
+  }}
+</div>
+<div class="instructions">{{i18n 'user.hidden_categories_instructions'}}</div>

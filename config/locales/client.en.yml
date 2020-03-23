@@ -1,0 +1,12 @@
+en:
+  js:
+    categories:
+      hide:
+        title: "Show/Hide Categories"
+        title_long: "Change visibility on front page"
+        save: "Save Visibility"
+        status: "Shown"
+      hidden_category_ids: "List of categories hidden on front page."
+    user:
+      hidden_categories: "Hidden"
+      hidden_categories_instructions: "These categories will be hidden from view on the front page. You will still be able to access them and will receive notifications according to your other preferences."

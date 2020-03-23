@@ -1,0 +1,38 @@
+{{#d-modal-body class="hide-categories full-height-modal" title="categories.hide.title"}}
+  <div id="rc-scroll-anchor"></div>
+  <table>
+    <thead>
+    <th class="th-cat">{{i18n "categories.category"}}</th>
+    <th class="th-pos">{{i18n "categories.hide.status"}}</th>
+    </thead>
+    <tbody>
+    {{#each categoriesOrdered as |cat|}}
+      <tr data-category-id="{{cat.id}}" class="input">
+        <td>
+          <div class={{concat 'hide-categories-depth-' cat.depth}}>
+            {{category-badge cat allowUncategorized="true"}}
+          </div>
+        </td>
+        <td>
+          {{input type="checkbox" checked=(not cat.isHidden) change=(action "change" cat)}}
+        </td>
+      </tr>
+      <tr class="instructions">
+        <td>
+          {{#if cat.description}}
+            <div class={{concat 'hide-categories-depth-' cat.depth}}>
+              <label>{{{cat.description}}}</label>
+            </div>
+          {{/if}}
+        </td>
+        <td></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  <div id="rc-scroll-bottom"></div>
+{{/d-modal-body}}
+
+<div class="modal-footer">
+  {{d-button class="btn-primary" action=(action "save") label="categories.hide.save"}}
+</div>
