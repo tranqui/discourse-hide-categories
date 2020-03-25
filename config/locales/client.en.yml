@@ -10,3 +10,5 @@ en:
     user:
       hidden_categories: "Hidden"
       hidden_categories_instructions: "These categories will be hidden from view on the front page. You will still be able to access them and will receive notifications according to your other preferences."
+  site_settings:
+    permanently_hidden_categories: "Categories (specified by their slugs) that will be hidden from the front page list regardless of user preference."

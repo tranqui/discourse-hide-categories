@@ -12,7 +12,17 @@ import { userPath } from "discourse/lib/url";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-function initializeHideCategories(api) {
+import Site from "discourse/models/site";
+
+function initializeHideCategories(api, ignore) {
+  CategoryList.reopenClass({
+    categoriesFrom() {
+      let categories = this._super(...arguments)
+      if (!ignore) return categories;
+      else return categories.filter(c => !ignore.includes(c.slug));
+    }
+  });
+
   api.modifyClass("model:user", {
     @discourseComputed("custom_fields.hidden_category_ids")
     hidden_category_ids() {
@@ -121,7 +131,11 @@ export default {
 
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
-    if (siteSettings.discourse_hide_categories_enabled)
-      withPluginApi("0.8.16", initializeHideCategories);
+    if (siteSettings.discourse_hide_categories_enabled) {
+      let ignore = siteSettings.permanently_hidden_categories.split("|");
+      withPluginApi("0.8.16", function(api) {
+        initializeHideCategories(api, ignore)
+      });
+    }
   }
 };
