@@ -16,28 +16,26 @@
   table {
     padding-bottom: 150px;
     margin: 0 0.667em;
-    border: none;
+    text-align: justify;
     tr.input {
       border-bottom: none;
     };
     tr.input td {
+      font-size: 100%;
       padding: 0.25em 0em 0em 0;
-      @include breakpoint(mobile, min-width) {
-        min-width: 15em;
-      }
     }
     tr.instructions {
+      max-width: 22.5em;
       border-top: none;
       display: table-row;
-      overflow-wrap: break-word;
     }
     tr.instructions td {
-      max-width: 20em;
-    }
-    tr.instructions label {
-      border: none;
-      padding: 0em 0em 0.25em 0;
+      max-width: 25em;
+      font-size: 80%;
+      overflow-wrap: break-word;
+      word-break: keep-all;
       color: $primary-medium;
+      pointer-events: none;
     }
   }
   .badge-wrapper span.badge-category {

@@ -19,9 +19,9 @@
       </tr>
       <tr class="instructions">
         <td>
-          {{#if cat.description}}
+          {{#if cat.description_excerpt}}
             <div class={{concat 'hide-categories-depth-' cat.depth}}>
-              <label>{{{cat.description}}}</label>
+              {{{dir-span cat.description_excerpt}}}
             </div>
           {{/if}}
         </td>
