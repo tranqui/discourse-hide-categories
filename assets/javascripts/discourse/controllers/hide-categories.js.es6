@@ -27,7 +27,9 @@ export default Controller.extend(ModalFunctionality, Evented, {
   @discourseComputed("site.categories")
   categoriesBuffered(categories) {
     const bufProxy = EmberObjectProxy.extend(BufferedProxy);
-    return categories.map(c => bufProxy.create({ content: c }));
+    let buffered = categories.map(c => bufProxy.create({ content: c }));
+    let ignore = Discourse.SiteSettings.permanently_hidden_categories.split("|");
+    return buffered.filter(c => !ignore.includes(c.content.slug));
   },
 
   categoriesOrdered: sort("categoriesBuffered", "categoriesSorting"),
