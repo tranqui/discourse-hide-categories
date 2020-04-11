@@ -6,3 +6,6 @@ plugins:
     type: list
     default: ""
     client: true
+  discourse_hide_categories_replace_restricted_icon:
+    default: 'lock'
+    client: true

@@ -1,3 +1,4 @@
 en:
   site_settings:
     discourse_hide_categories_enabled: "Allow users to hide categories on their front page"
+    discourse_hide_cateogires_replace_restricted_icon: "Replace svg icon for restricted categories."
