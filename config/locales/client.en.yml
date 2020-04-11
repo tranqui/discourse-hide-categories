@@ -1,5 +1,8 @@
 en:
   js:
+    default_category_visibility:
+      title: Default Visibility
+      for_category: Show on front page by default
     categories:
       hide:
         title: "Show/Hide Categories"
@@ -8,7 +11,10 @@ en:
         status: "Shown"
       hidden_category_ids: "List of categories hidden on front page."
     user:
+      category_visibility_settings: "Visibilities"
+      shown_categories: "Shown"
+      shown_categories_instructions: "Force these categories to show on the front page, overriding their default visibilities."
       hidden_categories: "Hidden"
-      hidden_categories_instructions: "These categories will be hidden from view on the front page. You will still be able to access them and will receive notifications according to your other preferences."
+      hidden_categories_instructions: "These categories will be hidden from view on the front page, overriding their default visibilities. You will still be able to access them and will receive notifications according to your other preferences."
   site_settings:
     permanently_hidden_categories: "Categories (specified by their slugs) that will be hidden from the front page list regardless of user preference."

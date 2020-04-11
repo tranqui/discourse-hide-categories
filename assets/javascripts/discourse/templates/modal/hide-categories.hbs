@@ -14,7 +14,7 @@
           </div>
         </td>
         <td>
-          {{input type="checkbox" checked=(not cat.isHidden) change=(action "change" cat)}}
+          {{input type="checkbox" checked=(isTrue cat.isShown) change=(action "change" cat)}}
         </td>
       </tr>
       <tr class="instructions">

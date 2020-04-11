@@ -12,5 +12,15 @@ enabled_site_setting :discourse_hide_categories_enabled
 
 after_initialize do
   register_editable_user_custom_field hidden_category_ids: []
+  register_editable_user_custom_field shown_category_ids: []
+  register_category_custom_field_type 'show_by_default', :boolean
+
+  if SiteSetting.discourse_hide_categories_enabled then
+    DiscoursePluginRegistry.serialized_current_user_fields << 'hidden_category_ids'
+    DiscoursePluginRegistry.serialized_current_user_fields << 'shown_category_ids'
+
+    add_to_serializer(:basic_category, :show_by_default) {
+      object.custom_fields['show_by_default']
+    }
+  end
 end
-DiscoursePluginRegistry.serialized_current_user_fields << 'hidden_category_ids'

@@ -13,8 +13,8 @@ import { userPath } from "discourse/lib/url";
 
 import { registerHelper } from "discourse-common/lib/helpers";
 
-registerHelper("not", function([value]) {
-  return !value;
+registerHelper("isTrue", function([value]) {
+  return value == true;
 });
 
 export default Controller.extend(ModalFunctionality, Evented, {
@@ -84,21 +84,27 @@ export default Controller.extend(ModalFunctionality, Evented, {
 
   actions: {
     change(category, event) {
-      category.content.set("isHidden", !event.target.checked);
+      category.content.set("isShown", event.target.checked);
     },
 
     save() {
       this.set("saved", false);
 
-      let new_hidden_category_ids = this.categoriesOrdered.filter(c => c.content.isHidden).map(c => c.content.id);
+      let new_hidden_category_ids = this.categoriesOrdered.filter(c => c.content.isShown == false).map(c => c.content.id);
+      let new_shown_category_ids = this.categoriesOrdered.filter(c => c.content.isShown == true).map(c => c.content.id);
 
       // hack to ensure empty categories list gets saved
-      let tmp = new_hidden_category_ids;
-      if (!tmp || !tmp.length) {
-        tmp = [-1];
+      let tmp1 = new_hidden_category_ids;
+      if (!tmp1 || !tmp1.length) {
+        tmp1 = [-1];
+      }
+      let tmp2 = new_shown_category_ids;
+      if (!tmp2 || !tmp2.length) {
+        tmp2 = [-1];
       }
 
-      this.currentUser.set("custom_fields.hidden_category_ids", tmp);
+      this.currentUser.set("custom_fields.hidden_category_ids", tmp1);
+      this.currentUser.set("custom_fields.shown_category_ids", tmp2);
       const data = this.currentUser.getProperties(["custom_fields"]);
 
       ajax(userPath(`${this.currentUser.username_lower}.json`), {
@@ -112,6 +118,7 @@ export default Controller.extend(ModalFunctionality, Evented, {
         .catch(popupAjaxError);
 
       this.currentUser.set("custom_fields.hidden_category_ids", new_hidden_category_ids);
+      this.currentUser.set("custom_fields.shown_category_ids", new_shown_category_ids);
     }
   }
 });

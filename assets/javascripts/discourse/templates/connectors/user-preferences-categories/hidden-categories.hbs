@@ -1,9 +1,24 @@
-<div class="controls tracking-controls">
-  <label>{{d-icon "far-eye-slash"}} {{i18n 'user.hidden_categories'}}</label>
-  {{category-selector
-    categories=model.hiddenCategories
-    blacklist=selectedCategories
-    onChange=(action (mut model.hiddenCategories))
-  }}
+<div class="control-group category-notifications">
+  <label class="control-label">{{i18n 'user.category_visibility_settings'}}</label>
+
+  <div class="controls tracking-controls">
+    <label>{{d-icon "far-eye"}} {{i18n 'user.shown_categories'}}</label>
+    {{category-selector
+      categories=model.shownCategories
+      blacklist=selectedCategories
+      onChange=(action (mut model.shownCategories))
+    }}
+  </div>
+  <div class="instructions">{{i18n 'user.shown_categories_instructions'}}</div>
+
+
+  <div class="controls tracking-controls">
+    <label>{{d-icon "far-eye-slash"}} {{i18n 'user.hidden_categories'}}</label>
+    {{category-selector
+      categories=model.hiddenCategories
+      blacklist=selectedCategories
+      onChange=(action (mut model.hiddenCategories))
+    }}
+  </div>
+  <div class="instructions">{{i18n 'user.hidden_categories_instructions'}}</div>
 </div>
-<div class="instructions">{{i18n 'user.hidden_categories_instructions'}}</div>

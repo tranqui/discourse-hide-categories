@@ -11,7 +11,7 @@
     </thead>
     <tbody aria-labelledby="categories-only-category">
       {{#each categories as |c|}}
-        {{#unless c.isHidden}}
+        {{#if c.isShown}}
         <tr data-category-id={{c.id}} data-notification-level={{c.notificationLevelString}} class="{{if c.description_excerpt 'has-description' 'no-description'}} {{if c.uploaded_logo.url 'has-logo' 'no-logo'}}">
           <td class="category" style={{border-color c.color}}>
             {{category-title-link category=c}}
@@ -24,7 +24,7 @@
               <table class="category-list subcategories-with-subcategories">
                 <tbody>
                   {{#each c.subcategories as |subcategory|}}
-                    {{#unless c.isHidden}}
+                    {{#if c.isShown}}
                     <tr data-category-id={{subcategory.id}} data-notification-level={{subcategory.notificationLevelString}} class="{{if subcategory.description_excerpt 'has-description' 'no-description'}} {{if subcategory.uploaded_logo.url 'has-logo' 'no-logo'}}">
                       <td class="category" style={{border-color subcategory.color}}>
                         {{category-title-link tagName="h4" category=subcategory}}
@@ -36,14 +36,14 @@
                         {{#if subcategory.subcategories}}
                           <div class='subcategories'>
                             {{#each subcategory.subcategories as |subsubcategory|}}
-                              {{#unless subsubcategory.isHidden}}
+                              {{#if subsubcategory.isShown}}
                               {{#unless subsubcategory.isMuted}}
                                 <span class='subcategory'>
                                   {{category-title-before category=subsubcategory}}
                                   {{category-link subsubcategory hideParent="true"}}
                                 </span>
                               {{/unless}}
-                              {{/unless}}
+                              {{/if}}
                             {{/each}}
                           </div>
                         {{else}}
@@ -55,14 +55,14 @@
                         {{/if}}
                       </td>
                     </tr>
-                    {{/unless}}
+                    {{/if}}
                   {{/each}}
                 </tbody>
               </table>
             {{else if c.subcategories}}
               <div class='subcategories'>
                 {{#each c.subcategories as |subcategory|}}
-                  {{#unless subcategory.isHidden}}
+                  {{#if subcategory.isShown}}
                   {{#unless subcategory.isMuted}}
                     <span class='subcategory'>
                       {{category-title-before category=subcategory}}
@@ -70,7 +70,7 @@
                       {{category-unread category=subcategory}}
                     </span>
                   {{/unless}}
-                  {{/unless}}
+                  {{/if}}
                 {{/each}}
               </div>
             {{/if}}
@@ -87,7 +87,7 @@
             </td>
           {{/if}}
         </tr>
-        {{/unless}}
+        {{/if}}
       {{/each}}
     </tbody>
   </table>
