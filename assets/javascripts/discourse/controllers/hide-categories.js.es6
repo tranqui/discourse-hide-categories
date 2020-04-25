@@ -22,6 +22,9 @@ export default Controller.extend(ModalFunctionality, Evented, {
     this._super(...arguments);
 
     this.categoriesSorting = ["position"];
+
+    this.new_hidden_category_ids = this.currentUser.get("hidden_category_ids");
+    this.new_shown_category_ids = this.currentUser.get("shown_category_ids");
   },
 
   @discourseComputed("site.categories")
@@ -75,7 +78,6 @@ export default Controller.extend(ModalFunctionality, Evented, {
   },
 
   willDestroyElement() {
-    console.log("new destroy");
     this._super(...arguments);
     this.appEvents.off("modal-body:flash", this, "_flash");
     this.appEvents.off("modal-body:clearFlash", this, "_clearFlash");
@@ -85,20 +87,41 @@ export default Controller.extend(ModalFunctionality, Evented, {
   actions: {
     change(category, event) {
       category.content.set("isShown", event.target.checked);
+
+      let id = category.get("id");
+      if (event.target.checked) {
+        const hidden_index = this.new_hidden_category_ids.indexOf(id);
+        if (hidden_index > -1) {
+          this.new_hidden_category_ids.splice(hidden_index, 1);
+        }
+
+        const shown_index = this.new_shown_category_ids.indexOf(id);
+        if (shown_index === -1) {
+          this.new_shown_category_ids.push(id);
+        }
+      }
+      else {
+        const shown_index = this.new_shown_category_ids.indexOf(id);
+        if (shown_index > -1) {
+          this.new_shown_category_ids.splice(shown_index, 1);
+        }
+
+        const hidden_index = this.new_hidden_category_ids.indexOf(id);
+        if (hidden_index === -1) {
+          this.new_hidden_category_ids.push(id);
+        }
+      }
     },
 
     save() {
       this.set("saved", false);
 
-      let new_hidden_category_ids = this.categoriesOrdered.filter(c => c.content.isShown == false).map(c => c.content.id);
-      let new_shown_category_ids = this.categoriesOrdered.filter(c => c.content.isShown == true).map(c => c.content.id);
-
       // hack to ensure empty categories list gets saved
-      let tmp1 = new_hidden_category_ids;
+      let tmp1 = this.new_hidden_category_ids;
       if (!tmp1 || !tmp1.length) {
         tmp1 = [-1];
       }
-      let tmp2 = new_shown_category_ids;
+      let tmp2 = this.new_shown_category_ids;
       if (!tmp2 || !tmp2.length) {
         tmp2 = [-1];
       }
@@ -117,8 +140,8 @@ export default Controller.extend(ModalFunctionality, Evented, {
         })
         .catch(popupAjaxError);
 
-      this.currentUser.set("custom_fields.hidden_category_ids", new_hidden_category_ids);
-      this.currentUser.set("custom_fields.shown_category_ids", new_shown_category_ids);
+      this.currentUser.set("custom_fields.hidden_category_ids", this.new_hidden_category_ids);
+      this.currentUser.set("custom_fields.shown_category_ids", this.new_shown_category_ids);
     }
   }
 });

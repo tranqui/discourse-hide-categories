@@ -38,7 +38,7 @@ function newCategoryLinkRenderer(category, opts) {
   let descriptionText = get(category, "description_text");
   let restricted = get(category, "read_restricted");
   let show_restricted_icon = restricted;
-  if (category.suppress_restricted_icon == true)
+  if (get(category, "suppress_restricted_icon") === true)
     show_restricted_icon = false;
   let url = opts.url
     ? opts.url
