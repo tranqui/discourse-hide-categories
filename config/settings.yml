@@ -4,7 +4,7 @@ plugins:
     client: true
   permanently_hidden_categories:
     type: list
-    default: ""
+    default: "uncategorized"
     client: true
   discourse_hide_categories_replace_restricted_icon:
     default: 'lock'
