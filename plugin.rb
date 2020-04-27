@@ -6,6 +6,7 @@
 register_asset 'stylesheets/discourse-hide-categories.scss'
 register_asset 'javascripts/discourse/templates/navigation/categories.hbs'
 register_asset 'javascripts/discourse/templates/components/categories-only.hbs'
+register_asset 'javascripts/discourse/templates/mobile/components/categories-only.hbs'
 register_asset 'javascripts/discourse/templates/components/d-navigation.hbs'
 register_asset 'javascripts/discourse/templates/components/category-title-link.hbs'
 

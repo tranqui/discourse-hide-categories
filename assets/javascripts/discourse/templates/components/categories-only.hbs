@@ -24,7 +24,7 @@
               <table class="category-list subcategories-with-subcategories">
                 <tbody>
                   {{#each c.subcategories as |subcategory|}}
-                    {{#if c.isShown}}
+                    {{#if subcategory.isShown}}
                     <tr data-category-id={{subcategory.id}} data-notification-level={{subcategory.notificationLevelString}} class="{{if subcategory.description_excerpt 'has-description' 'no-description'}} {{if subcategory.uploaded_logo.url 'has-logo' 'no-logo'}}">
                       <td class="category" style={{border-color subcategory.color}}>
                         {{category-title-link tagName="h4" category=subcategory}}
