@@ -14,7 +14,9 @@
           </div>
         </td>
         <td>
-          {{input type="checkbox" checked=(isTrue cat.isShown) change=(action "change" cat)}}
+          {{#unless (isSubcategory cat)}}
+            {{input type="checkbox" checked=(isTrue cat.isShown) change=(action "change" cat)}}
+          {{/unless}}
         </td>
       </tr>
       <tr class="instructions">

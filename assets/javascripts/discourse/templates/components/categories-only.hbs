@@ -24,7 +24,6 @@
               <table class="category-list subcategories-with-subcategories">
                 <tbody>
                   {{#each c.subcategories as |subcategory|}}
-                    {{#if subcategory.isShown}}
                     <tr data-category-id={{subcategory.id}} data-notification-level={{subcategory.notificationLevelString}} class="{{if subcategory.description_excerpt 'has-description' 'no-description'}} {{if subcategory.uploaded_logo.url 'has-logo' 'no-logo'}}">
                       <td class="category" style={{border-color subcategory.color}}>
                         {{category-title-link tagName="h4" category=subcategory}}
@@ -36,14 +35,12 @@
                         {{#if subcategory.subcategories}}
                           <div class='subcategories'>
                             {{#each subcategory.subcategories as |subsubcategory|}}
-                              {{#if subsubcategory.isShown}}
                               {{#unless subsubcategory.isMuted}}
                                 <span class='subcategory'>
                                   {{category-title-before category=subsubcategory}}
                                   {{category-link subsubcategory hideParent="true"}}
                                 </span>
                               {{/unless}}
-                              {{/if}}
                             {{/each}}
                           </div>
                         {{else}}
@@ -55,14 +52,12 @@
                         {{/if}}
                       </td>
                     </tr>
-                    {{/if}}
                   {{/each}}
                 </tbody>
               </table>
             {{else if c.subcategories}}
               <div class='subcategories'>
                 {{#each c.subcategories as |subcategory|}}
-                  {{#if subcategory.isShown}}
                   {{#unless subcategory.isMuted}}
                     <span class='subcategory'>
                       {{category-title-before category=subcategory}}
@@ -70,7 +65,6 @@
                       {{category-unread category=subcategory}}
                     </span>
                   {{/unless}}
-                  {{/if}}
                 {{/each}}
               </div>
             {{/if}}

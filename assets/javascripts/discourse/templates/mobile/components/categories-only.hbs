@@ -27,7 +27,6 @@
 
               {{#if c.isGrandParent}}
                 {{#each c.subcategories as |subcategory|}}
-                  {{#if subcategory.isShown}}
                   <tr data-category-id={{c.id}} class='subcategory-list-item category' style={{border-color subcategory.color}}>
                   <td>
                     {{category-title-link tagName="h4" category=subcategory}}
@@ -45,18 +44,15 @@
                     </div>
                   </td>
                   </tr>
-                  {{/if}}
               {{/each}}
             {{else if c.subcategories}}
               <tr class="subcategories-list">
                 <td>
                   <div class='subcategories'>
                     {{#each c.subcategories as |subcategory|}}
-                      {{#if subcategory.isShown}}
                       {{#unless subcategory.isMuted}}
                         {{category-link subcategory}}
                       {{/unless}}
-                      {{/if}}
                     {{/each}}
                   </div>
                 </td>

@@ -17,6 +17,10 @@ registerHelper("isTrue", function([value]) {
   return value == true;
 });
 
+registerHelper("isSubcategory", function([category]) {
+  return category.get("parent_category_id")
+});
+
 export default Controller.extend(ModalFunctionality, Evented, {
   init() {
     this._super(...arguments);
