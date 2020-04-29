@@ -14,7 +14,7 @@
           </div>
         </td>
         <td>
-          {{#unless (isSubcategory cat)}}
+          {{#unless (hideCheckbox cat)}}
             {{input type="checkbox" checked=(isTrue cat.isShown) change=(action "change" cat)}}
           {{/unless}}
         </td>

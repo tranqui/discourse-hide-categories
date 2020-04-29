@@ -17,6 +17,7 @@ after_initialize do
   register_editable_user_custom_field shown_category_ids: []
   register_category_custom_field_type 'show_by_default', :boolean
   register_category_custom_field_type 'suppress_restricted_icon', :boolean
+  register_category_custom_field_type 'force_show', :boolean
 
   if SiteSetting.discourse_hide_categories_enabled then
     DiscoursePluginRegistry.serialized_current_user_fields << 'hidden_category_ids'
@@ -28,6 +29,10 @@ after_initialize do
 
     add_to_serializer(:basic_category, :suppress_restricted_icon) {
       object.custom_fields['suppress_restricted_icon']
+    }
+
+    add_to_serializer(:basic_category, :force_show) {
+      object.custom_fields['force_show']
     }
   end
 end
