@@ -27,8 +27,8 @@ export default Controller.extend(ModalFunctionality, Evented, {
 
     this.categoriesSorting = ["position"];
 
-    this.new_hidden_category_ids = this.currentUser.get("hidden_category_ids");
-    this.new_shown_category_ids = this.currentUser.get("shown_category_ids");
+    this.new_hidden_category_ids = this.currentUser.get("hidden_category_ids").map(c => Number(c));
+    this.new_shown_category_ids = this.currentUser.get("shown_category_ids").map(c => Number(c));
   },
 
   @discourseComputed("site.categories")
@@ -125,10 +125,12 @@ export default Controller.extend(ModalFunctionality, Evented, {
       if (!tmp1 || !tmp1.length) {
         tmp1 = [-1];
       }
+      tmp1 = tmp1.map(c => c.toString());
       let tmp2 = this.new_shown_category_ids;
       if (!tmp2 || !tmp2.length) {
         tmp2 = [-1];
       }
+      tmp2 = tmp2.map(c => c.toString());
 
       this.currentUser.set("custom_fields.hidden_category_ids", tmp1);
       this.currentUser.set("custom_fields.shown_category_ids", tmp2);
@@ -143,9 +145,6 @@ export default Controller.extend(ModalFunctionality, Evented, {
           this.send("closeModal");
         })
         .catch(popupAjaxError);
-
-      this.currentUser.set("custom_fields.hidden_category_ids", this.new_hidden_category_ids);
-      this.currentUser.set("custom_fields.shown_category_ids", this.new_shown_category_ids);
     }
   }
 });

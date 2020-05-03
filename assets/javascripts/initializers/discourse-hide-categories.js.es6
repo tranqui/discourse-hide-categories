@@ -130,41 +130,31 @@ function initializeHideCategories(api, ignore) {
     }
   });
 
-  api.modifyClass("model:user", {
-    @discourseComputed("custom_fields.hidden_category_ids")
-    hidden_category_ids() {
-      let items = this.get("custom_fields.hidden_category_ids");
-      if (!items || !items.length || items == "-1") return [];
-      else if (typeof(items) === "string") return [items];
-      return items;
-    },
-
-    @discourseComputed("custom_fields.shown_category_ids")
-    shown_category_ids() {
-      let items = this.get("custom_fields.shown_category_ids");
-      if (!items || !items.length || items == "-1") return [];
-      else if (typeof(items) === "string") return [items];
-      return items;
-    },
-
-    @observes("custom_fields.hidden_category_ids",
-              "custom_fields.shown_category_ids")
-    updateHiddenCategories() {
-      const list = Category.list();
-      list.forEach(c => c.set("isShown", c.show_by_default));
-
-      this.set("hiddenCategories", Category.findByIds(this.hidden_category_ids));
-      this.set("shownCategories", Category.findByIds(this.shown_category_ids));
-      this.hiddenCategories.forEach(c => c.set("isShown", false));
-      this.shownCategories.forEach(c => c.set("isShown", true));
-    }
-  });
-
   let user = api.getCurrentUser();
   if (user) {
     user.findDetails();
-    user.addObserver("custom_fields.hidden_category_ids");
-    user.addObserver("custom_fields.shown_category_ids");
+
+    let updateHiddenCategories = function(u) {
+      let hidden = u.get("custom_fields.hidden_category_ids");
+      if (!hidden || !hidden.length || hidden == "-1") hidden = [];
+      else if (typeof(hidden) === "string") hidden = [hidden];
+      u.set("hidden_category_ids", hidden);
+
+      let shown = u.get("custom_fields.shown_category_ids");
+      if (!shown || !shown.length || shown == "-1") shown = [];
+      else if (typeof(shown) === "string") shown = [shown];
+      u.set("shown_category_ids", shown);
+
+      const categories = Category.list();
+      categories.forEach(c => c.set("isShown", c.show_by_default));
+
+      u.set("hiddenCategories", Category.findByIds(u.hidden_category_ids));
+      u.set("shownCategories", Category.findByIds(u.shown_category_ids));
+      u.hiddenCategories.forEach(c => c.set("isShown", false));
+      u.shownCategories.forEach(c => c.set("isShown", true));
+    };
+
+    user.addObserver("custom_fields", updateHiddenCategories);
   }
 
   api.modifyClass("controller:preferences/categories", {
@@ -192,9 +182,6 @@ function initializeHideCategories(api, ignore) {
           type: "PUT"
         }).then(() => this._super(...arguments))
           .catch(popupAjaxError);
-
-        this.model.set("custom_fields.hidden_category_ids", actual_hidden);
-        this.model.set("custom_fields.shown_category_ids", actual_shown);
       }
     }
   });
