@@ -5,6 +5,7 @@ en:
       for_category: Show on front page by default
       suppress_restricted_icon: Hide the restricted icon appearing before the category name
       force_show: Disable hiding of this category from the front page
+      force_show_groups: Groups that will have the category shown on the front page
     categories:
       hide:
         title: "Show/Hide Categories"

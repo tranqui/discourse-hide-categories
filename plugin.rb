@@ -18,6 +18,7 @@ after_initialize do
   register_category_custom_field_type 'show_by_default', :boolean
   register_category_custom_field_type 'suppress_restricted_icon', :boolean
   register_category_custom_field_type 'force_show', :boolean
+  register_category_custom_field_type 'force_show_groups', [:integer]
 
   DiscoursePluginRegistry.serialized_current_user_fields << 'hidden_category_ids'
   DiscoursePluginRegistry.serialized_current_user_fields << 'shown_category_ids'
@@ -30,7 +31,42 @@ after_initialize do
     object.custom_fields['suppress_restricted_icon']
   }
 
-  add_to_serializer(:basic_category, :force_show) {
+  add_to_serializer(:category, :force_show) {
     object.custom_fields['force_show']
   }
+
+  add_to_serializer(:category, :force_show_groups) {
+    object.custom_fields['force_show_groups']
+  }
+
+  add_to_serializer(:basic_category, :user_force_show) {
+    if object.custom_fields['force_show'] then
+      user = scope && scope.user
+      if user then
+        everyone = Group::AUTO_GROUPS[:everyone]
+        has_everyone = object.custom_fields["force_show_groups"] && object.custom_fields["force_show_groups"].include?(everyone)
+        return true if has_everyone
+        in_allowed_group = GroupUser.where(group_id: object.custom_fields["force_show_groups"], user_id: user.id).exists?
+        return true if in_allowed_group
+      end
+    end
+    false
+  }
+
+  reloadable_patch do
+    category_overrides = Module.new do
+      def category_params
+        return super if !SiteSetting.discourse_hide_categories_enabled
+        super.tap do |value|
+          if params["custom_fields"] && groups = params["custom_fields"]["force_show_groups"]
+            value["custom_fields"]["force_show_groups"] = groups
+          end
+        end
+      end
+    end
+
+    CategoriesController.class_exec do
+      prepend category_overrides
+    end
+  end
 end

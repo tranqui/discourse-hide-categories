@@ -1,18 +1,39 @@
 <section class="default-category-visibility">
   <h3>{{i18n "default_category_visibility.title"}}</h3>
 
-  <label>
-    {{input type="checkbox" checked=category.custom_fields.show_by_default}}
-    {{i18n "default_category_visibility.for_category"}}
-  </label>
+  <section class="field">
+    <label>
+      {{input type="checkbox" checked=category.custom_fields.show_by_default}}
+      {{i18n "default_category_visibility.for_category"}}
+    </label>
+  </section>
 
-  <label>
-    {{input type="checkbox" checked=category.custom_fields.suppress_restricted_icon}}
-    {{i18n "default_category_visibility.suppress_restricted_icon"}}
-  </label>
+  <section class="field">
+    <label>
+      {{input type="checkbox" checked=category.custom_fields.suppress_restricted_icon}}
+      {{i18n "default_category_visibility.suppress_restricted_icon"}}
+    </label>
+  </section>
 
-  <label>
-    {{input type="checkbox" checked=category.custom_fields.force_show}}
-    {{i18n "default_category_visibility.force_show"}}
-  </label>
+  <section class="field">
+    <label>
+      {{input type="checkbox" checked=category.custom_fields.force_show}}
+      {{i18n "default_category_visibility.force_show"}}
+    </label>
+  </section>
+
+  {{#if category.custom_fields.force_show}}
+    <section class="field">
+      <label for="force-show-for-group">
+        {{i18n "default_category_visibility.force_show_groups"}}
+      </label>
+      <div class="value">
+        {{admin-group-selector
+          content=groups
+          value=category.custom_fields.force_show_groups
+          onChange=(action (mut category.custom_fields.force_show_groups))
+        }}
+      </div>
+    </section>
+  {{/if}}
 </section>
