@@ -19,6 +19,11 @@ after_initialize do
   register_category_custom_field_type 'suppress_restricted_icon', :boolean
   register_category_custom_field_type 'force_show', :boolean
   register_category_custom_field_type 'force_show_groups', [:integer]
+  Site.preloaded_category_custom_fields << 'show_by_default' if Site.respond_to? :preloaded_category_custom_fields
+  Site.preloaded_category_custom_fields << 'suppress_restricted_icon' if Site.respond_to? :preloaded_category_custom_fields
+  Site.preloaded_category_custom_fields << 'force_show' if Site.respond_to? :preloaded_category_custom_fields
+  Site.preloaded_category_custom_fields << 'force_show_groups' if Site.respond_to? :preloaded_category_custom_fields
+  Site.preloaded_category_custom_fields << 'user_force_show' if Site.respond_to? :preloaded_category_custom_fields
 
   DiscoursePluginRegistry.serialized_current_user_fields << 'hidden_category_ids'
   DiscoursePluginRegistry.serialized_current_user_fields << 'shown_category_ids'
