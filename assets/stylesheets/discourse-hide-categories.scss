@@ -58,3 +58,28 @@
 .hide-categories-depth-2 {
   margin-left: 40px;
 }
+
+.hide-categories-button-container {
+  .btn {
+    font-size: 1.3195em;
+    width: 100%;
+    padding: 8px 10px;
+    line-height: 200%;
+    border: 1px dashed #b5b5b5;
+    border-radius: 5px;
+    color: #707070;
+    background-color: transparent;
+    transition: none;
+    .d-icon {
+      color: inherit;
+      transition: none;
+    }
+    &:hover {
+      background-color: #f0f0f0;
+      color: #707070;
+      .d-icon {
+        color: inherit;
+      }
+    }
+  }
+}

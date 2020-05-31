@@ -191,7 +191,8 @@ function initializeHideCategories(api, ignore) {
       controller.set("model", model);
 
       this.controllerFor("navigation/categories").setProperties({
-        showCategoryDropdown: user,
+        //showCategoryDropdown: user,
+        showCategoryDropdown: model.get("can_create_category"),
         showCategoryAdmin: model.get("can_create_category"),
         canCreateTopic: model.get("can_create_topic")
       });
@@ -204,40 +205,40 @@ function initializeHideCategories(api, ignore) {
     }
   });
 
-  api.modifyClass("component:d-navigation", {
-    actions: {
-      selectCategoryAdminDropdownAction(actionId) {
-        switch (actionId) {
-          case "hide":
-            this.hideCategories();
-            break;
-          case "create":
-            this.createCategory();
-            break;
-          case "reorder":
-            this.reorderCategories();
-            break;
-        }
-      }
-    }
-  });
+  // api.modifyClass("component:d-navigation", {
+  //   actions: {
+  //     selectCategoryAdminDropdownAction(actionId) {
+  //       switch (actionId) {
+  //         case "hide":
+  //           this.hideCategories();
+  //           break;
+  //         case "create":
+  //           this.createCategory();
+  //           break;
+  //         case "reorder":
+  //           this.reorderCategories();
+  //           break;
+  //       }
+  //     }
+  //   }
+  // });
 
-  CategoriesAdminDropdown.reopen( {
-    content: computed(function() {
-      const items = [
-        {
-          id: "hide",
-          name: I18n.t("categories.hide.title"),
-          description: I18n.t("categories.hide.title_long"),
-          icon: "far-eye-slash",
-        }
-      ];
+  // CategoriesAdminDropdown.reopen( {
+  //   content: computed(function() {
+  //     const items = [
+  //       {
+  //         id: "hide",
+  //         name: I18n.t("categories.hide.title"),
+  //         description: I18n.t("categories.hide.title_long"),
+  //         icon: "far-eye-slash",
+  //       }
+  //     ];
 
-      if (this.showCategoryAdmin) items.push(...this._super());
+  //     if (this.showCategoryAdmin) items.push(...this._super());
 
-      return items;
-    })
-  });
+  //     return items;
+  //   })
+  // });
 }
 
 export default {

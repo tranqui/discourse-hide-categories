@@ -9,6 +9,7 @@ register_asset 'javascripts/discourse/templates/components/categories-only.hbs'
 register_asset 'javascripts/discourse/templates/mobile/components/categories-only.hbs'
 register_asset 'javascripts/discourse/templates/components/d-navigation.hbs'
 register_asset 'javascripts/discourse/templates/components/category-title-link.hbs'
+register_asset 'javascripts/discourse/templates/components/hide-categories-button.hbs'
 
 enabled_site_setting :discourse_hide_categories_enabled
 

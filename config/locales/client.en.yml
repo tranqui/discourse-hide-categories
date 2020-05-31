@@ -7,6 +7,9 @@ en:
       force_show: Disable hiding of this category from the front page
       force_show_groups: Groups that will have the category shown on the front page
     categories:
+      hide_button:
+        title: "Show/Hide Categories"
+        title_long: "Change visibility of categories on front page"
       hide:
         title: "Show/Hide Categories"
         title_long: "Change visibility on front page"
