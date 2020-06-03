@@ -18,7 +18,7 @@ registerHelper("isTrue", function([value]) {
 });
 
 registerHelper("hideCheckbox", function([category]) {
-  return category.get("user_force_show") || category.get("parent_category_id")
+  return category.get("user_force_show") || category.get("parent_category_id");
 });
 
 export default Controller.extend(ModalFunctionality, Evented, {

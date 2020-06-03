@@ -20,6 +20,13 @@ import { isRTL } from "discourse/lib/text-direction";
 import { iconHTML } from "discourse-common/lib/icon-library";
 import categoryBadgeHTML from "discourse/helpers/category-link"
 
+// import { registerHelper } from "discourse-common/lib/helpers";
+
+// registerHelper("isShown", function([category]) {
+//     console.log(category.name, , category.isShown);
+//   return category.user_force_show || category.isShown;
+// });
+
 let escapeExpression = Handlebars.Utils.escapeExpression;
 
 function categoryStripe(color, classes) {
@@ -152,6 +159,8 @@ function initializeHideCategories(api, ignore) {
       u.set("shownCategories", Category.findByIds(u.shown_category_ids));
       u.hiddenCategories.forEach(c => c.set("isShown", false));
       u.shownCategories.forEach(c => c.set("isShown", true));
+
+      categories.forEach(c => {if (c.user_force_show) c.set("isShown", true);});
     };
 
     user.addObserver("custom_fields", updateHiddenCategories);
